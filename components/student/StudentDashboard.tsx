@@ -61,7 +61,7 @@ export default function StudentDashboard({ evaluations, studentData, onPhotoUpda
                 
                 <div className="w-40 h-40 mx-auto mb-4 relative group">
                     <img 
-                        src={studentData?.photoUrl || "https://i.imgur.com/GckSf3v.jpeg"} 
+                        src={studentData?.photoUrl || "https://i.imgur.com/E4eTKc4.jpeg"} 
                         alt="صورة الطالب" 
                         className="w-full h-full object-cover rounded-full border-4 border-cyan-500 bg-gray-200"
                     />

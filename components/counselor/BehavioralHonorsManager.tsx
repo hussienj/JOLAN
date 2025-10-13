@@ -67,7 +67,7 @@ export default function BehavioralHonorsManager({ currentUser, classes, users, s
             section: classInfo.section,
             nominationTimestamp: new Date().toISOString(),
             votes: {},
-            studentPhotoUrl: student.photoUrl || 'https://i.imgur.com/GckSf3v.jpeg',
+            studentPhotoUrl: student.photoUrl || 'https://i.imgur.com/E4eTKc4.jpeg',
         };
 
         let path = `behavioral_honor_boards/${principalId}/${weekId}/${selectedStage}`;
@@ -156,7 +156,7 @@ export default function BehavioralHonorsManager({ currentUser, classes, users, s
                                         <div className="flex items-center gap-4">
                                             <div className="relative w-16 h-16 rounded-full bg-gray-200">
                                                 <img
-                                                    src={nominated.studentPhotoUrl || 'https://i.imgur.com/GckSf3v.jpeg'}
+                                                    src={nominated.studentPhotoUrl || 'https://i.imgur.com/E4eTKc4.jpeg'}
                                                     alt={nominated.studentName}
                                                     className="w-full h-full object-cover rounded-full"
                                                 />

@@ -127,7 +127,7 @@ export default function HallOfFame({ currentUser, classes }: HallOfFameProps) {
                                             {RANK_STYLES[index]?.icon || <Star size={16}/>}
                                         </div>
                                         <img
-                                            src={entry.studentPhotoUrl || 'https://i.imgur.com/GckSf3v.jpg'}
+                                            src={entry.studentPhotoUrl || 'https://i.imgur.com/E4eTKc4.jpeg'}
                                             alt={entry.studentName}
                                             className="w-24 h-24 rounded-full object-cover border-4 border-white bg-gray-200"
                                         />

@@ -28,7 +28,7 @@ const StudentCard = ({ student, rank, score, classes }: { student: HonoredStuden
     <div className="relative flex flex-col items-center p-4 bg-white rounded-xl shadow-lg border-2 border-yellow-300 transform transition-transform hover:scale-105">
         {rank === 1 && <Crown className="absolute -top-5 w-10 h-10 text-yellow-400" />}
         <img
-            src={student.studentPhotoUrl || 'https://i.imgur.com/GckSf3v.jpeg'}
+            src={student.studentPhotoUrl || 'https://i.imgur.com/E4eTKc4.jpeg'}
             alt={student.studentName}
             className="w-28 h-28 rounded-full object-cover border-4 border-yellow-400 bg-gray-200"
         />
