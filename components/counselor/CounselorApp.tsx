@@ -65,7 +65,13 @@ export default function CounselorApp({ currentUser, onLogout, users }: Counselor
         const submissionsRef = db.ref(`student_submissions/${principalId}`);
         const contactsRef = db.ref(`parent_contacts/${principalId}`);
 
-        const settingsCallback = (snapshot: any) => setSettings(snapshot.val() || DEFAULT_SCHOOL_SETTINGS);
+        const settingsCallback = (snapshot: any) => {
+            const val = snapshot.val() || DEFAULT_SCHOOL_SETTINGS;
+            if (!val.schoolName || val.schoolName === 'اعدادية الجولان العلمية') {
+                val.schoolName = 'اعدادية اللطيفية للبنين';
+            }
+            setSettings(val);
+        };
         const classesCallback = (snapshot: any) => {
             const data = snapshot.val();
             const allClassesList: ClassData[] = data ? Object.values(data) as ClassData[] : [];

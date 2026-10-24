@@ -19,7 +19,7 @@ export default function Settings({ currentSettings, onSave, currentUser, updateU
     
     const isPrincipal = currentUser.role === 'principal';
     const isFormDisabled = currentUser.role === 'teacher';
-    const areNameFieldsDisabled = currentUser.role === 'principal' || currentUser.role === 'teacher';
+    const areNameFieldsDisabled = currentUser.role === 'teacher';
 
     // Effect for online users count
     useEffect(() => {

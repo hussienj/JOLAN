@@ -30,9 +30,9 @@ export default function Login({ onLogin }: LoginProps) {
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4" style={{ fontFamily: "'Cairo', sans-serif" }}>
             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-8">
                 <div className="text-center">
-                    <img src="https://i.imgur.com/E4eTKc4.jpeg" alt="شعار اعدادية الجولان العلمية" className="mx-auto w-40 h-40 mb-4" />
+                    <img src="https://i.imgur.com/E4eTKc4.jpeg" alt="شعار اعدادية اللطيفية للبنين" className="mx-auto w-40 h-40 mb-4" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
-                        اعدادية الجولان العلمية
+                        اعدادية اللطيفية للبنين
                     </h1>
                 </div>
 

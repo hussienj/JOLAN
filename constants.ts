@@ -12,7 +12,7 @@ export const GOVERNORATES = [
 ];
 
 export const DEFAULT_SCHOOL_SETTINGS: SchoolSettings = {
-    schoolName: '',
+    schoolName: 'اعدادية اللطيفية للبنين',
     principalName: '',
     academicYear: '2025-2026',
     directorate: '',
@@ -22,7 +22,7 @@ export const DEFAULT_SCHOOL_SETTINGS: SchoolSettings = {
     principalPhone: '',
     schoolType: 'نهاري',
     schoolGender: 'بنين',
-    schoolLevel: 'متوسطة',
+    schoolLevel: 'اعدادية',
     governorateCode: '',
     schoolCode: '',
     governorateName: 'بغداد',

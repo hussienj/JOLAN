@@ -8,7 +8,7 @@ const PRINCIPAL_USER: User = {
     id: 'principal_al_jolan',
     role: 'principal',
     name: 'محمد فاضل عاصي',
-    schoolName: 'اعدادية الجولان العلمية',
+    schoolName: 'اعدادية اللطيفية للبنين',
     schoolLevel: 'اعدادي علمي',
     code: 'JOLAN_SCI_2024',
     studentCodeLimit: 1000
@@ -27,6 +27,10 @@ export default function useAuth() {
                 if (parsedUser.role === 'admin') {
                     window.localStorage.removeItem('current_user');
                     return null;
+                }
+                if (parsedUser.id === PRINCIPAL_USER.id || parsedUser.schoolName === 'اعدادية الجولان العلمية') {
+                    parsedUser.schoolName = 'اعدادية اللطيفية للبنين';
+                    window.localStorage.setItem('current_user', JSON.stringify(parsedUser));
                 }
                 return parsedUser;
             } catch {

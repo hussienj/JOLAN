@@ -112,8 +112,10 @@ export default function MainApp({ currentUser, onLogout, users, addUser, updateU
 
 
     const createDefaultSettingsForPrincipal = (principal: CurrentUser): SchoolSettings => {
+        const defaultName = 'اعدادية اللطيفية للبنين';
+        const schoolName = principal.schoolName && principal.schoolName !== 'اعدادية الجولان العلمية' ? principal.schoolName : defaultName;
         return {
-            schoolName: principal.schoolName || '',
+            schoolName,
             principalName: principal.name,
             academicYear: "2025-2026",
             directorate: '',
@@ -122,7 +124,7 @@ export default function MainApp({ currentUser, onLogout, users, addUser, updateU
             principalPhone: '',
             schoolType: 'نهاري',
             schoolGender: 'بنين',
-            schoolLevel: currentUser.schoolLevel || 'متوسطة',
+            schoolLevel: currentUser.schoolLevel || 'اعدادية',
             governorateCode: '',
             schoolCode: '',
             governorateName: 'بغداد',
@@ -162,6 +164,10 @@ export default function MainApp({ currentUser, onLogout, users, addUser, updateU
             settingsCallback = (snapshot: any) => { 
                 const data = snapshot.val();
                 if (data) {
+                    if (data.schoolName === 'اعدادية الجولان العلمية' || !data.schoolName) {
+                        data.schoolName = 'اعدادية اللطيفية للبنين';
+                        settingsRef.child('schoolName').set('اعدادية اللطيفية للبنين');
+                    }
                     setSettings(data);
                 } else if (isPrincipal) {
                     const defaultSettings = createDefaultSettingsForPrincipal(currentUser);
@@ -296,24 +302,35 @@ export default function MainApp({ currentUser, onLogout, users, addUser, updateU
     }, [classes, users, isPrincipal, currentUser.id]);
 
     const effectiveSettings = useMemo(() => {
+        const defaultName = 'اعدادية اللطيفية للبنين';
+        const cleanSchoolName = (name?: string) => {
+            if (!name || name === 'اعدادية الجولان العلمية') return defaultName;
+            return name;
+        };
+
         if (isPrincipal) {
+            const rawName = currentUser.schoolName || settings.schoolName;
             return {
                 ...settings,
-                schoolName: currentUser.schoolName || settings.schoolName || 'لم يتم تحديد اسم المدرسة',
+                schoolName: cleanSchoolName(rawName),
                 principalName: currentUser.name,
                 schoolLevel: currentUser.schoolLevel || settings.schoolLevel,
             };
         }
         if (isTeacher) {
             const principal = users.find(u => u.id === (currentUser as Teacher).principalId);
+            const rawName = principal?.schoolName || settings.schoolName;
             return {
                 ...settings,
-                schoolName: principal?.schoolName || settings.schoolName || 'لم يتم تحديد اسم المدرسة',
+                schoolName: cleanSchoolName(rawName),
                 principalName: principal?.name || settings.principalName,
                 schoolLevel: principal?.schoolLevel || settings.schoolLevel,
             };
         }
-        return settings;
+        return {
+            ...settings,
+            schoolName: cleanSchoolName(settings.schoolName),
+        };
     }, [settings, currentUser, isPrincipal, isTeacher, users]);
 
     const handleSelectClass = (classId: string) => {
@@ -324,6 +341,17 @@ export default function MainApp({ currentUser, onLogout, users, addUser, updateU
     const handleSaveSettings = (newSettings: SchoolSettings) => {
         if (isPrincipal) {
             db.ref(`settings/${currentUser.id}`).set(newSettings);
+            if (newSettings.schoolName && newSettings.schoolName !== currentUser.schoolName) {
+                updateUser(currentUser.id, u => ({ ...u, schoolName: newSettings.schoolName }));
+                const storedUser = window.localStorage.getItem('current_user');
+                if (storedUser) {
+                    try {
+                        const parsed = JSON.parse(storedUser);
+                        parsed.schoolName = newSettings.schoolName;
+                        window.localStorage.setItem('current_user', JSON.stringify(parsed));
+                    } catch {}
+                }
+            }
             alert('تم حفظ الإعدادات بنجاح!');
             setActiveView('home');
         }
