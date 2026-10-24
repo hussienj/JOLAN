@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef } from 'react';
 import type { Student, StudentEvaluation, EvaluationRating } from '../../types';
-import { Star, BarChart, X, Camera, Loader2 } from 'lucide-react';
+import { Star, BarChart, X, Camera, Loader2, User } from 'lucide-react';
 
 const RATING_MAP: Record<EvaluationRating, { value: number; color: string; }> = {
     'ممتاز': { value: 5, color: 'text-green-500' },
@@ -60,11 +60,17 @@ export default function StudentDashboard({ evaluations, studentData, onPhotoUpda
             <div className="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg text-center">
                 
                 <div className="w-40 h-40 mx-auto mb-4 relative group">
-                    <img 
-                        src={studentData?.photoUrl || "https://i.imgur.com/E4eTKc4.jpeg"} 
-                        alt="صورة الطالب" 
-                        className="w-full h-full object-cover rounded-full border-4 border-cyan-500 bg-gray-200"
-                    />
+                    {studentData?.photoUrl ? (
+                        <img 
+                            src={studentData.photoUrl} 
+                            alt="صورة الطالب" 
+                            className="w-full h-full object-cover rounded-full border-4 border-cyan-500 bg-gray-200"
+                        />
+                    ) : (
+                        <div className="w-full h-full rounded-full border-4 border-cyan-500 bg-gray-100 flex items-center justify-center text-gray-400">
+                            <User size={64} className="text-gray-400" />
+                        </div>
+                    )}
                     <input
                         type="file"
                         ref={fileInputRef}
